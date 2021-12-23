@@ -30,6 +30,14 @@ const productsRepository = {
 
     return product
   },
+
+  async delete(product) {
+    const products = await this.getAllFromCart()
+    const findIndex = products.findIndex((obj) => obj.id == product.id)
+    products.splice(findIndex, 1)
+
+    await writeJsonFile(FILE_PATH_CART, products)
+  },
 }
 
 module.exports = productsRepository
